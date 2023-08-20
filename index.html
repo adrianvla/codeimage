@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js' integrity='sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==' crossorigin='anonymous'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=JetBrains+Mono:100,200,300,regular,500,600,700,800,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic" rel="stylesheet" />
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js' integrity='sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug==' crossorigin='anonymous'></script>
+    <title>Code Image</title>
+</head>
+<body>
+    <div class="page-content">
+        <div class="bg-c">
+            <div class="resize-c l">
+                <div class="resize" style="margin-right: -15px;"></div>
+            </div>
+            <div class="bg">
+                <div class="window">
+                    <div class="header">
+                        <div class="controls">
+                            <div class="circle"></div>
+                            <div class="circle"></div>
+                            <div class="circle"></div>
+                        </div>
+                        <div class="title">
+                            <input type="text" name="" id="">
+                        </div>
+                    </div>
+                    <div class="content">
+                        <textarea spellcheck="false" tabindex="-1" autocomplete="off" autocorrect="off" autocapitalize="none">module.exports = leftpad;
+
+function leftpad(str, len, ch) {
+    str = String(str);
+    var i = -1;
+
+    if (!ch && ch !== 0) ch = ' ';
+
+    len = len - str.length;
+
+    while (i++ < len) {
+        str = ch + str;
+    }
+    return str;
+}</textarea>
+                        <div class="code"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="resize-c r">
+                <div class="resize" style="margin-left: -15px;"></div>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
