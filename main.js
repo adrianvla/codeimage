@@ -25,6 +25,7 @@ function refreshCode(e){
         return $(`<span class="hljs-text">${el.data}</span>`)[0];
     }).map(el=>el.outerHTML);
     $(e).siblings(".code").html(c.value);
+    globalTextHeight = $($(e).siblings(".code").children().get(0)).height();
 }
 
 var currentMousePos = { x: -1, y: -1 };
@@ -32,6 +33,7 @@ var ISDRAGGING = false;
 var window_area_width = 500;
 var currentDelta = 0;
 var whichOne = 1;
+var globalTextHeight = 20;
 $(document).mousemove(function(event) {
     currentMousePos.x = event.pageX;
     currentMousePos.y = event.pageY;
@@ -78,9 +80,6 @@ function animate(w,txt){
         if(el.nodeType!=3) return el;
         return $(`<span class="hljs-text">${el.data}</span>`)[0];
     }).map(el=>el.outerHTML).join('');
-    $(w).find(".code").contents().each(function(){
-        this.classList.add("_"+uuidv4());
-    });
     let tempinnerw = "";
     $(w).find(".code").contents().each(function(){
         let O = "<span class=\""+this.classList+"\">";
@@ -89,12 +88,39 @@ function animate(w,txt){
         tempinnerw += O;
     });
     $(w).find(".code").html(tempinnerw);
+    tempinnerw = "";
+    $(w).find(".code").contents().each(function(){
+        if($(this).height()>(globalTextHeight)){
+            let O = "<span class=\""+this.classList+"\">";
+            O+= this.innerHTML.split('').join("</span>"+"<span class=\""+this.classList+"\">");
+            O+="</span>";
+            tempinnerw += O;
+        }else{
+            tempinnerw += this.outerHTML;
+        }
+    });
+    $(w).find(".code").html(tempinnerw);
+    tempinnerw = "";
+    $(w).find(".code").contents().each(function(){
+        let O = "<span class=\""+this.classList+"\">";
+        O+= this.innerHTML.replaceAll(" ","</span>"+"<span> </span><span class=\""+this.classList+"\">");
+        O+="</span>";
+        tempinnerw += O;
+    });
+    $(w).find(".code").html(tempinnerw);
+
     $(w).find(".code").contents().each(function(){
         if(this.innerHTML == "\n" || this.innerHTML == "") {this.classList=""}
+    });
+    $(w).find(".code").contents().each(function(){
+        this.classList.add("_"+uuidv4());
     });
     let td = $(`<div class="transitioncode">${$(w).find(".code").html()}</div>`);
     $("body").append(td[0]);
     
+    td.contents().each(function(){
+        if(this.innerHTML == "\n" || this.innerHTML == "" || this.innerHTML == " " || this.innerHTML == " ") this.remove();
+    });
     
     function getPos(EL){
         // return {x: $(EL).offset().left - $(window).scrollLeft(),y: $(EL).offset().top - $(window).scrollTop()};
@@ -105,6 +131,7 @@ function animate(w,txt){
     
     let elms = td.contents();
     let elms2 = $(`<div>${txt}</div>`).contents();
+
 
     // $(w).find(".code").contents().each(function(){
     //     let P = getPos(this);
@@ -120,11 +147,11 @@ function animate(w,txt){
     
     elms.each(function(){
         try{
-            console.log(Array.from(this.classList).filter(p=>(p[0]=="_"))[0]);
-            let P = getPos($(w).find(".code ."+Array.from(this.classList).filter(p=>(p[0]=="_"))[0])[0]);
-            console.log(P);
-            $(this).css("left",`${P.x}`);
-            $(this).css("top",`${P.y}`);
+            let E = $(w).find(".code ."+Array.from(this.classList).filter(p=>(p[0]=="_"))[0])[0];
+            let P = getPos(E);
+            console.log("Positions: ",this,E,P,Array.from(this.classList).filter(p=>(p[0]=="_"))[0]);
+            $(this).css("left",`${P.x}px`);
+            $(this).css("top",`${P.y}px`);
             $(this).css("position","absolute");
         }catch(e){
             console.log(e)
