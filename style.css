@@ -5,7 +5,7 @@
     --frame-title-color: hsla(0,0%,100%,.6);
     --frame-shadow-border: rgba(0,0,0,.8);
     --frame-highlight-border: hsla(0,0%,100%,.3);
-    --window-area-width: 300px;
+    --window-area-width: 500px;
 }
 
 
@@ -66,6 +66,7 @@ body{
     border-radius:10px;
     width:100%;
     background: var(--frame-background);
+    overflow:hidden;
 }
 .header{
     padding-bottom:16px;
@@ -166,6 +167,9 @@ body{
     white-space: pre-line;
     width:100vw;
     height:100vh;
+}
+.transitioncode > span{
+    position:absolute;
 }
 .content > textarea:focus{
     outline:none;
